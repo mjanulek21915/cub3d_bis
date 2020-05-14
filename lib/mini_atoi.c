@@ -9,5 +9,5 @@ int static			mini_atoi(char **buff)
 		(*buff)++;
 	}
 	(*buff)++;
-	return (rst)
+	return (rst);
 }

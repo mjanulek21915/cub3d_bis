@@ -17,6 +17,7 @@ int					get_path_strlen(char *buff)
 
 char			*get_path(char **buff)
 {
+fprintf(stderr, "get_path\n");
 	char *rst;
 	int i;
 

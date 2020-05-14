@@ -1,14 +1,14 @@
 #include "cub3d.h"
 
-t_mask			*mk_mask(float fov_v, float v_res, float fov_h, float h_res)
+t_masks			*mk_mask(float fov_v, float v_res, float fov_h, float h_res)
 {
-	t_mask *rst;
+	t_masks *rst;
 
 	float h_base;
 	float v_base;
 	int i;
 
-	if (!(rst = malloc(t_mask)))
+	if (!(rst = malloc(sizeof(t_masks))))
 		do_exit("mk_mask: malloc fail\n");
 	rst->h_mask_count = ((int)h_res / 2) + ((int)h_res % 2) + 1;
 	rst->v_mask_count = ((int)v_res / 2) + ((int)v_res % 2) + 1;
@@ -23,13 +23,13 @@ t_mask			*mk_mask(float fov_v, float v_res, float fov_h, float h_res)
 	v_base = tan(fov_v) * rst->v_mask_count;
 
 	i = 0;
-	while (i < h_mask_count)
+	while (i < rst->h_mask_count)
 	{
 		rst->h_mask[i] = atan((float)i / h_base);
 		i++;
 	}
 	i = 0;
-	while (i < v_mask_count)
+	while (i < rst->v_mask_count)
 	{
 		rst->v_mask[i] = atan((float)i / v_base);
 		i++;

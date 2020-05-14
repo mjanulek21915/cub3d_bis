@@ -1,29 +1,69 @@
 #include "cub3d.h"
 
-#define PATH "./img/test.bmp"
 
 
 
-void printout(t_texture *texture)
-{
-	int i = 0;
-	int j = 0;
-
-	while (i < texture->size_x)
-	{
-		j = 0;
-		while (j < texture->size_y)
-		{
-			printf("|%d|", texture->bitmap[i][j]);
-			j++;
-		}
-		i++;
-	}
-}
 
 int main()
 {
-	t_texture *texture;
-    texture = bmp_to_texture(PATH);
-	printout(texture);
+    void *mlx;
+    void *window;
+	t_map *map;
+	t_img *img;
+	void *r_draw;
+
+	map = mk_map(PATH);
+	print_map(map);
+
+
+    if (!(mlx = mlx_init()))
+		do_exit("mlx_init fail");
+
+    if (!(window = mlx_new_window(mlx, SIZE_X, SIZE_Y, "test_window")))
+		do_exit("mlx_new_window fail");
+
+
+	if (!(img = mlx_new_image(mlx, SIZE_X, SIZE_Y)))
+		do_exit("mlx_new_image fail");
+	draw(map, img);
+	mlx_put_image_to_window(mlx, window, img, 0, 0);
+    mlx_key_hook(window, key_hook, map);
+	// mlx_loop_hook(win,draw, mlx, window, 0);
+    mlx_loop(mlx);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// fprintf(stderr, "\n");
+	// fprintf(stderr, "hdg : %f\n", map->player_hdg);
+	// fprintf(stderr, "hdg : %f\n", map->player_posx);
+	// fprintf(stderr, "hdg : %f\n", map->player_posy);

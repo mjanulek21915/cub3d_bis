@@ -1,0 +1,40 @@
+assets:
+ :void
+0:void
+1:block
+N:
+/home/aaa/cub3d_bis/img/test.bmp
+S:
+/home/aaa/cub3d_bis/img/test.bmp
+E:
+/home/aaa/cub3d_bis/img/test.bmp
+W:
+/home/aaa/cub3d_bis/img/test.bmp
+block end
+
+2:block
+N:
+/home/aaa/cub3d_bis/img/test.bmp
+S:
+/home/aaa/cub3d_bis/img/test.bmp
+E:
+/home/aaa/cub3d_bis/img/test.bmp
+W:
+/home/aaa/cub3d_bis/img/test.bmp
+block end
+
+p:player
+HDG:
+0
+POSX:
+2
+POSY:
+2
+player end
+assets end
+
+walls:
+112211
+100001
+100p01
+112211

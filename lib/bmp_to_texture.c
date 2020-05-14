@@ -17,7 +17,7 @@ t_texture				*bmp_to_texture(char *path)
 		return ((t_texture *)NULL);
 	if ((rst->size = open_file(&buff, path)) <= 0)
 		return ((t_texture *)NULL);
-	printf("\tsize %d\n", rst->size);
+fprintf(stderr, "\tsize %d\n", rst->size);
 	rst->offset = *((int *)(buff + 10));
 	rst->size = (rst->size - rst->offset)/4;
 	rst->size_x = *((int *)(buff + 18));
@@ -30,9 +30,9 @@ t_texture				*bmp_to_texture(char *path)
 			return ((t_texture *)NULL);
 		i++;
 	}
-	printf("\tsize_x %d\n", rst->size_x);
-	printf("\tsize_y %d\n", rst->size_y);
-	printf("\tsize %d\n", rst->size);
+fprintf(stderr, "\tsize_x %d\n", rst->size_x);
+fprintf(stderr, "\tsize_y %d\n", rst->size_y);
+fprintf(stderr, "\tsize %d\n", rst->size);
 
 	temp = (int *)(buff + rst->offset);
 
@@ -47,6 +47,6 @@ t_texture				*bmp_to_texture(char *path)
 		}
 		i++;
 	}
-
+fprintf(stderr, "bmp_to_texture done \n");
 	return (rst);
 }

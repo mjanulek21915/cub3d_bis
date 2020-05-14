@@ -3,5 +3,5 @@
 void			do_exit(char *msg)
 {
 	perror(msg);
-	exit;
+	exit(EXIT_FAILURE);
 }

@@ -1,15 +1,56 @@
 #ifndef __CUB3D_H__
 #define __CUB3D_H__
 
-#include "debug.h"
+#include "_cub3d_debug.h"
+
+
+#define R_LEFT 113
+#define R_RIGHT 100
+#define LEFT 119
+#define RIGHT 99
+#define UP 115
+#define DOWN 120
+
+#define SIZE_X 200
+#define SIZE_Y 200
+#define TITLE "test"
 
 #define PI 3.14159265359
+#define PATH "/home/aaa/cub3d_bis/maps/map_test"
 
-typedef struct			s_asset
+
+// typedef struct			s_map
+// {
+// 	t_background *background;
+// 	t_block ***walls;
+// 	int h_res;
+// 	int v_res;
+// 	int size_x;
+// 	int size_y;
+// 	float start_x;
+// 	float start_y;
+// 	t_asset *asset;
+// 	float player_hdg;
+// 	float player_hdg_spd;
+// 	float player_posx;
+// 	float player_posx_spd;
+// 	float player_posy;
+// 	float player_posy_spd;
+
+// }						t_map;
+
+typedef struct			s_display
 {
-	int type;
-	void *data;
-}						t_asset;
+	void *mlx;
+}						t_display;
+
+
+typedef struct			s_background
+{
+	int *bitmap;
+	int size;
+
+}						t_background;
 
 typedef struct			s_texture
 {
@@ -21,13 +62,6 @@ typedef struct			s_texture
 	int size_h;
 	int size_w;
 }						t_texture;
-
-typedef struct			s_player;
-{
-	float pos_x;
-	float pos_y;
-	float hdg;
-}						t_player;
 
 
 typedef struct			s_masks
@@ -41,7 +75,7 @@ typedef struct			s_masks
 
 typedef struct			s_block
 {
-	int size_x
+	int size_x;
 
 	char *n_path;
 	t_texture *n_texture;
@@ -67,24 +101,71 @@ typedef struct			s_block
 
 
 
+typedef struct			s_asset
+{
+	char type;
+	void *data;
+}						t_asset;
+
 
 typedef struct			s_map
 {
-	t_block **walls;
+	t_background *background;
+	t_block ***walls;
+	int h_res;
+	int v_res;
 	int size_x;
 	int size_y;
 	float start_x;
 	float start_y;
-	char start_heading;
-	t_asset asset[128];
+	t_asset *asset;
+	float player_hdg;
+	float player_hdg_spd;
+	float player_posx;
+	float player_posx_spd;
+	float player_posy;
+	float player_posy_spd;
+
 }						t_map;
 
+void	print_map(t_map* map);
+void	print_player(t_map *map);
+void	printout(t_texture *texture);
+void	print_pixmap(int *img, int size);
 
 
 
+void				do_exit(char *msg);
+int					open_file(char **buff, char *path);
+t_texture			*bmp_to_texture(char *path);
+void				next_line(char **buff);
+void				end_line(char **buff);
+int					iz_it(char *needl, char *hayst);
+char				*get_path(char **buff);
+float				get_value(char **buff);
 
-int				open_file(char **buff, char *path);
-t_texture				*bmp_to_texture(char *path);
+t_map				*mk_map(char *path);
+int					mk_map_assets(t_map *map, char **buff);
+void				mk_map_walls(t_map *map, char **buff);
+void				mk_map_background(t_map *map, char *c_sky, char *c_dirt);
+
+
+t_block				*mk_map_assets_block(char **buff);
+void				mk_map_assets_player(t_map *map, char **buff);
+
+t_masks				*mk_mask(float fov_v, float v_res, float fov_h, float h_res);
+
+void				mv_up(t_map *map);
+void				mv_down(t_map *map);
+void				mv_left(t_map *map);
+void				mv_right(t_map *map);
+void				mv_r_left(t_map *map);
+void				mv_r_right(t_map *map);
+
+int					key_hook(int key, t_map *map);
+
+void		draw(t_map *map, t_img *img);
+
 
 
 #endif

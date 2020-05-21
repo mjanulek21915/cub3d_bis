@@ -39,10 +39,6 @@
 
 // }						t_map;
 
-typedef struct			s_display
-{
-	void *mlx;
-}						t_display;
 
 
 typedef struct			s_background
@@ -107,18 +103,51 @@ typedef struct			s_asset
 	void *data;
 }						t_asset;
 
+typedef struct			s_solve
+{
+	float pos_x;
+	float pos_y;
+	float pos_z;
+	float step_x;
+	float step_y;
+	float step_z;
+	float sol_x;
+	float sol_y;
+	float sol_z;
+	float hdg;
+	float ati;
+	float dist;
+}						t_solve;
 
+// typedef struct			s_logic;
+// {
+
+// }
+
+
+//////////////////////////////////////////////////////////////////////
 typedef struct			s_map
 {
-	t_background *background;
-	t_block ***walls;
-	int h_res;
-	int v_res;
 	int size_x;
 	int size_y;
-	float start_x;
-	float start_y;
+
+
+	t_background *background;
+	t_block ***walls;
 	t_asset *asset;
+
+
+	void (*f_draw)(int *, int *, int);
+	void (*f_expose)(void *, void *, int, int);
+ 	void *mlx;
+	void *window;
+	t_img *img;
+
+
+	int h_res;
+	int v_res;
+
+
 	float player_hdg;
 	float player_hdg_spd;
 	float player_posx;
@@ -128,6 +157,9 @@ typedef struct			s_map
 
 }						t_map;
 
+
+
+//////////////////////////////////////////////////////////////////////
 void	print_map(t_map* map);
 void	print_player(t_map *map);
 void	printout(t_texture *texture);

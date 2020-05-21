@@ -29,6 +29,8 @@ t_map			*mk_map(char *path)
 	mk_map_assets(map, &buff);
 	mk_map_walls(map, &buff);
 	mk_map_background(map, sky, dirt);
+	map->f_draw = &draw;
+	map->f_expose = &mlx_put_image_to_window;
  fprintf(stderr, "mk_map done\n");
 	return (map);
 }

@@ -15,6 +15,7 @@ int main()
 	map = mk_map(PATH);
 	print_map(map);
 
+	map->f_draw = &draw;
 
     if (!(mlx = mlx_init()))
 		do_exit("mlx_init fail");
@@ -26,7 +27,7 @@ int main()
 	if (!(img = mlx_new_image(mlx, SIZE_X, SIZE_Y)))
 		do_exit("mlx_new_image fail");
 	draw(map, img);
-	mlx_put_image_to_window(mlx, window, img, 0, 0);
+	// mlx_put_image_to_window(mlx, window, img, 0, 0);
     mlx_key_hook(window, key_hook, map);
 	// mlx_loop_hook(win,draw, mlx, window, 0);
     mlx_loop(mlx);

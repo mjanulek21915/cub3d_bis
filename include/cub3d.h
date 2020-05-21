@@ -103,6 +103,14 @@ typedef struct			s_asset
 	void *data;
 }						t_asset;
 
+typedef struct			s_draw_walls
+{
+	int h;
+	int v;
+	int h_count;
+	int v_count;
+}						t_draw_walls;
+
 typedef struct			s_solve
 {
 	float pos_x;
@@ -114,10 +122,18 @@ typedef struct			s_solve
 	float sol_x;
 	float sol_y;
 	float sol_z;
-	float hdg;
+	float round_x;
+	float round_y;
+	float azi;
 	float ati;
 	float dist;
 }						t_solve;
+
+typedef struct			s_request
+{
+	float ati;
+	float azi;
+}
 
 // typedef struct			s_logic;
 // {
@@ -135,10 +151,12 @@ typedef struct			s_map
 	t_background *background;
 	t_block ***walls;
 	t_asset *asset;
+	t_masks *
 
 
 	void (*f_draw)(int *, int *, int);
 	void (*f_expose)(void *, void *, int, int);
+
  	void *mlx;
 	void *window;
 	t_img *img;
@@ -154,7 +172,7 @@ typedef struct			s_map
 	float player_posx_spd;
 	float player_posy;
 	float player_posy_spd;
-
+	void (*solve[9])(float ati, float azi, t_map *map)
 }						t_map;
 
 

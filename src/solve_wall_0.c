@@ -9,13 +9,17 @@ void		solve_wall_0_init_x(float ati, float azi, t_map *map, t_solve *solve)
 	solve->posz = map->posz;
 	solve->ati = ati;
 	solve->azi = azi;
-	solve->stepy = float_r_up(map->posy) - solve->posy;
+	solve->stepy = ceil(map->posy) - solve->posy;
+	if (!solve->stepy)
+		solve->stepy = 1;	
 	solve->get_dist = &solve_get_dist_cosy;
 	solve->draw = &draw_wall_w;
 	solve->dirx = 1;
 	solve->diry = 1;
 	solve->sum_dist = 0;
- fprintf(stderr, "solve_wall_0_init_x ok\n");
+	solve->is_found = 0;
+ fprintf(stderr, "\tsolve_wall_0_init_x ok : ");
+//  print_solve(solve);
 
 }
 
@@ -28,13 +32,18 @@ void		solve_wall_0_init_y(float ati, float azi, t_map *map, t_solve *solve)
 	solve->posz = map->posz;
 	solve->ati = ati;
 	solve->azi = azi;
-	solve->stepx = float_r_up(map->posx) - solve->posx;
+	solve->stepx = ceil(map->posx) - solve->posx;
+	if (!solve->stepx)
+		solve->stepx = 1;
 	solve->get_dist = &solve_get_dist_cosy;
 	solve->draw = &draw_wall_w;
 	solve->dirx = 1;
 	solve->diry = 1;
 	solve->sum_dist = 0;
- fprintf(stderr, "solve_wall_0_init_y ok\n");
+	solve->is_found = 0;
+
+ fprintf(stderr, "solve_wall_0_init_y ok : ");
+//  print_solve(solve);
 
 }
 

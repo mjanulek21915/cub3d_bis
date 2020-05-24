@@ -2,6 +2,8 @@
 
 int		solve_wall_x_primer(t_solve *solve, t_map *map)
 {
+ fprintf(stderr, "solve_wall_x_primer\n");
+
 	solve->stepy = solve->diry;
 	solve->stepx = tan(solve->azi);
 	solve->posx =+ solve->stepx;
@@ -15,6 +17,7 @@ int		solve_wall_x_primer(t_solve *solve, t_map *map)
 		return (0);
 	solve->sum_dist =+ solve->dist;
 	solve->block = map->walls[(int)solve->posx][(int)solve->posy];
+ fprintf(stderr, "solve_wall_x_primer ok\n");
 	
 	return (1);
 }

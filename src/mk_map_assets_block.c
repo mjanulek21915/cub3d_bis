@@ -3,7 +3,7 @@
 void static				mk_map_assets_block_get_paths(t_block *block, char **buff)
 {
  fprintf(stderr, "mk_map_assets_block_get_paths\n");
- fprintf(stderr, "/>>>mk_map_assets_block_get_paths : \n%s\n>>>end\n", *buff);
+//  fprintf(stderr, "/>>>mk_map_assets_block_get_paths : \n%s\n>>>end\n", *buff);
 	while (!(iz_it("/block", *buff)) && **buff)
 	{
 

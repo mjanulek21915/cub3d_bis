@@ -32,6 +32,8 @@ void		solve_wall_7_init_y(float ati, float azi, t_map *map, t_solve *solve)
 
 void		solve_wall_7(float ati, float azi, t_map *map, t_loop loop)
 {
+ fprintf(stderr, "solve_wall_7\n");
+
 	t_solve solve_x;
 	t_solve solve_y;
 
@@ -53,5 +55,6 @@ void		solve_wall_7(float ati, float azi, t_map *map, t_loop loop)
 		solve_x.draw(map, solve_x.block, &solve_x, loop);
 	else if (solve_y.is_found && !(solve_x.is_found))
 		solve_y.draw(map, solve_y.block, &solve_y, loop);
+ fprintf(stderr, "solve_wall_7 ok\n");
 
 }

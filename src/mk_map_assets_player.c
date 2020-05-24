@@ -14,6 +14,8 @@ void				mk_map_assets_player(t_map *map, char **buff)
 			map->posx = get_value(buff);
 		else if (iz_it("POSY:", *buff))
 			map->posy = get_value(buff);
+		else if (iz_it("POSZ:", *buff))
+			map->posz = get_value(buff);
 		else if (iz_it("POS_SPD:", *buff))
 			map->p_spd = get_value(buff);
 		(*buff)++;

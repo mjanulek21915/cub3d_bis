@@ -187,6 +187,8 @@ void	print_map(t_map* map);
 void	print_player(t_map *map);
 void	printout(t_texture *texture);
 void	print_pixmap(int *img, int size);
+void		print_solve(t_solve *solve);
+
 
 float		float_r_down(float x);
 float		float_r_up(float x);

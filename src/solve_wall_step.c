@@ -2,6 +2,8 @@
 
 int		solve_wall_step(t_solve *solve, t_map *map)
 {
+ fprintf(stderr, "solve_wall_step\n");
+
 	solve->posx =+ solve->stepx;
 	solve->posy =+ solve->stepy;
 	solve->posz =+ solve->stepz;
@@ -10,6 +12,7 @@ int		solve_wall_step(t_solve *solve, t_map *map)
 		return (0);
 	solve->sum_dist =+ solve->dist;
 	solve->block = map->walls[(int)solve->posx][(int)solve->posy];
+ fprintf(stderr, "solve_wall_step ok\n");
 	
 	return (1);
 }

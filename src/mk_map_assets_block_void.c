@@ -10,7 +10,6 @@ t_block				*mk_map_assets_block_void(char **buff)
 	while (!(iz_it("/void", *buff)) && **buff)
 		*(*buff++);
 	next_line(buff);
-	fprintf(stderr, ">>>buff :\n%s\n>>>end\n", *buff);
  fprintf(stderr, "mk_map_assets_block_void done\n");
 
 	return (rst);

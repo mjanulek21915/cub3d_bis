@@ -4,6 +4,7 @@ int		draw_wall_w(t_map *map, t_block *wall, t_solve *solve, t_loop loop)
 {
 	float h;
 	float v;
+print_solve(solve);
 
 	h = (float)(solve->posx - (int)map->posx);
 	v = (float)(solve->posz - (int)map->posz);

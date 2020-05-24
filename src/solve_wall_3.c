@@ -1,28 +1,22 @@
 #include "cub3d.h"
 
-void		solve_wall_0_init_x(float ati, float azi, t_map *map, t_solve *solve)
+void		solve_wall_3_init_x(float ati, float azi, t_map *map, t_solve *solve)
 {
- fprintf(stderr, "solve_wall_0_init_x\n");
-
 	solve->posx = map->posx;
 	solve->posy = map->posy;
 	solve->posz = map->posz;
 	solve->ati = ati;
 	solve->azi = azi;
-	solve->stepy = float_r_up(map->posy) - solve->posy;
+	solve->stepy = float_r_down(map->posy) - solve->posy;
 	solve->get_dist = &solve_get_dist_cosy;
-	solve->draw = &draw_wall_w;
+	solve->draw = &draw_wall_e;
 	solve->dirx = 1;
-	solve->diry = 1;
+	solve->diry = -1;
 	solve->sum_dist = 0;
- fprintf(stderr, "solve_wall_0_init_x ok\n");
-
 }
 
-void		solve_wall_0_init_y(float ati, float azi, t_map *map, t_solve *solve)
+void		solve_wall_3_init_y(float ati, float azi, t_map *map, t_solve *solve)
 {
- fprintf(stderr, "solve_wall_0_init_y\n");
-
 	solve->posx = map->posx;
 	solve->posy = map->posy;
 	solve->posz = map->posz;
@@ -30,23 +24,19 @@ void		solve_wall_0_init_y(float ati, float azi, t_map *map, t_solve *solve)
 	solve->azi = azi;
 	solve->stepx = float_r_up(map->posx) - solve->posx;
 	solve->get_dist = &solve_get_dist_cosy;
-	solve->draw = &draw_wall_w;
+	solve->draw = &draw_wall_e;
 	solve->dirx = 1;
-	solve->diry = 1;
+	solve->diry = -1;
 	solve->sum_dist = 0;
- fprintf(stderr, "solve_wall_0_init_y ok\n");
-
 }
 
-void		solve_wall_0(float ati, float azi, t_map *map, t_loop loop)
+void		solve_wall_3(float ati, float azi, t_map *map, t_loop loop)
 {
- fprintf(stderr, "solve_wall_0\n");
-
 	t_solve solve_x;
 	t_solve solve_y;
 
-	solve_wall_0_init_x(ati, azi, map, &solve_x);
-	solve_wall_0_init_y(ati, azi, map, &solve_y);
+	solve_wall_3_init_x(ati, azi, map, &solve_x);
+	solve_wall_3_init_y(ati, azi, map, &solve_y);
 	if (solve_wall_x(&solve_x, map) && solve_wall_y(&solve_y, map))
 		if(solve_wall_x_primer(&solve_x, map)
 		&& solve_wall_y_primer(&solve_y, map))
@@ -63,6 +53,5 @@ void		solve_wall_0(float ati, float azi, t_map *map, t_loop loop)
 		solve_x.draw(map, solve_x.block, &solve_x, loop);
 	else if (solve_y.is_found && !(solve_x.is_found))
 		solve_y.draw(map, solve_y.block, &solve_y, loop);
- fprintf(stderr, "solve_wall_0 ok\n");
-	
+
 }

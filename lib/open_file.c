@@ -7,6 +7,8 @@ int static		of_get_len(char *path)
 	char buff;
 
 	rst = 0;
+ fprintf(stderr, "open_file get_len path:\n>>>%s\n", path);
+
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
 		do_exit("open_file get_len open error\n");

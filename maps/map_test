@@ -1,6 +1,8 @@
 assets:
  :void
+/void
 0:void
+/void
 1:block
 N:
 /home/aaa/cub3d_bis/img/test.bmp
@@ -10,7 +12,7 @@ E:
 /home/aaa/cub3d_bis/img/test.bmp
 W:
 /home/aaa/cub3d_bis/img/test.bmp
-block end
+/block
 
 2:block
 N:
@@ -21,7 +23,7 @@ E:
 /home/aaa/cub3d_bis/img/test.bmp
 W:
 /home/aaa/cub3d_bis/img/test.bmp
-block end
+/block
 
 p:player
 HDG:
@@ -30,8 +32,12 @@ POSX:
 2
 POSY:
 2
-player end
-assets end
+HDG_SPD:
+1
+POS_SPD:
+0.1
+/player
+/assets
 
 walls:
 112211

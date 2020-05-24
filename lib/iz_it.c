@@ -3,7 +3,7 @@
 
 int				iz_it(char *needl, char *hayst)
 {
-	while (*needl && *needl == *hayst)
+	while (*hayst && *needl && *needl == *hayst)
 	{
 		needl++;
 		hayst++;

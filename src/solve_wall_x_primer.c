@@ -1,21 +1,20 @@
 #include "cub3d.h"
 
-int		solve_wall_x(t_solve *solve, t_map *map)
+int		solve_wall_x_primer(t_solve *solve, t_map *map)
 {
-fprintf(stderr, "solve_wall_x\n");
-	t_block *wall;
-	solve->stepx = solve->stepy * tan(solve->azi);
+	solve->stepy = solve->diry;
+	solve->stepx = tan(solve->azi);
 	solve->posx =+ solve->stepx;
 	solve->posy =+ solve->stepy;
 	if (solve->posy >= map->size_y || solve->posx >= map->size_x ||
 	 solve->posy < 0 || solve->posx < 0)
 		return (0);
 	solve->get_dist(solve);
-	if (((solve->posz =+ (tan(solve->ati) * solve->dist)) >= 1 || solve->posz <= 0))
+	solve->stepz = tan(solve->ati) * solve->dist;
+	if (((solve->posz =+ solve->stepz) >= 1 || solve->posz <= 0))
 		return (0);
 	solve->sum_dist =+ solve->dist;
-fprintf(stderr, "solve_wall_x test\n");
 	solve->block = map->walls[(int)solve->posx][(int)solve->posy];
-fprintf(stderr, "solve_wall_x ok\n");
+	
 	return (1);
 }

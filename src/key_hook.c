@@ -41,5 +41,5 @@ int	key_hook(int key, t_map *map)
 		print_player(map);
 	}
 
-	map->f_draw(map->mlx, map->window, map->img);
+	map->f_draw(map);
 }

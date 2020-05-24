@@ -2,5 +2,5 @@
 
 int		int_r_down(float x)
 {
-	return (int x);
+	return ((int) x);
 }

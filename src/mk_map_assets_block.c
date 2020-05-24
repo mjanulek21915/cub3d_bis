@@ -2,9 +2,9 @@
 
 void static				mk_map_assets_block_get_paths(t_block *block, char **buff)
 {
- fprintf(stderr, "/mk_map_assets_block_get_paths\n");
- fprintf(stderr, "/mk_map_assets_block_get_paths : %c\n", **buff);
-	while (!(iz_it("block end", *buff)) && **buff)
+ fprintf(stderr, "mk_map_assets_block_get_paths\n");
+ fprintf(stderr, "/>>>mk_map_assets_block_get_paths : \n%s\n>>>end\n", *buff);
+	while (!(iz_it("/block", *buff)) && **buff)
 	{
 
 		if (iz_it("N:", *buff))
@@ -36,6 +36,7 @@ t_block				*mk_map_assets_block(char **buff)
 	t_block *rst;
 	if (!(rst = malloc(sizeof(t_block))))
 		return (NULL);
+	rst->is_void = 0;
 	mk_map_assets_block_get_paths(rst, buff);
 	mk_map_assets_block_get_textures(rst);
  fprintf(stderr, "mk_map_assets_block done\n");

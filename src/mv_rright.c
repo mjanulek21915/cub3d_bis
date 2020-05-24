@@ -2,6 +2,5 @@
 
 void		mv_r_right(t_map *map)
 {
-	map->player_hdg = map->player_hdg - map->player_hdg_spd;
-	print_player(map);
+	map->azi = map->azi - map->p_spd;
 }

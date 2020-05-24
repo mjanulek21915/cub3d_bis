@@ -16,7 +16,12 @@
 #define TITLE "test"
 
 #define PI 3.14159265359
+#define PI4 (float)PI/4
 #define PATH "/home/aaa/cub3d_bis/maps/map_test"
+
+#define FOV_V 90;
+#define FOV_H 60;
+
 
 
 // typedef struct			s_map
@@ -62,9 +67,9 @@ typedef struct			s_texture
 
 typedef struct			s_masks
 {
-	int h_mask_count;
+	int hcount;
 	float *h_mask;
-	int v_mask_count;
+	int vcount;
 	float *v_mask;
 }						t_masks;
 
@@ -72,26 +77,27 @@ typedef struct			s_masks
 typedef struct			s_block
 {
 	int size_x;
+	int is_void;
 
 	char *n_path;
 	t_texture *n_texture;
-	float mult_n_x;
-	float mult_n_y;
+	float mult_n_v;
+	float mult_n_h;
 
 	char *s_path;
 	t_texture *s_texture;
-	float mult_s_x;
-	float mult_s_y;
+	float mult_s_v;
+	float mult_s_h;
 
 	char *e_path;
 	t_texture *e_texture;
-	float mult_e_x;
-	float mult_e_y;
+	float mult_e_v;
+	float mult_e_h;
 
 	char *w_path;
 	t_texture *w_texture;
-	float mult_w_x;
-	float mult_w_y;
+	float mult_w_v;
+	float mult_w_h;
 }						t_block;
 
 
@@ -103,42 +109,16 @@ typedef struct			s_asset
 	void *data;
 }						t_asset;
 
-typedef struct			s_draw_walls
+typedef struct			s_loop
 {
 	int h;
 	int v;
-	int h_count;
-	int v_count;
-}						t_draw_walls;
+	int hcount;
+	int vcount;
+}						t_loop;
 
-typedef struct			s_solve
-{
-	float pos_x;
-	float pos_y;
-	float pos_z;
-	float step_x;
-	float step_y;
-	float step_z;
-	float sol_x;
-	float sol_y;
-	float sol_z;
-	float round_x;
-	float round_y;
-	float azi;
-	float ati;
-	float dist;
-}						t_solve;
 
-typedef struct			s_request
-{
-	float ati;
-	float azi;
-}
 
-// typedef struct			s_logic;
-// {
-
-// }
 
 
 //////////////////////////////////////////////////////////////////////
@@ -151,37 +131,66 @@ typedef struct			s_map
 	t_background *background;
 	t_block ***walls;
 	t_asset *asset;
-	t_masks *
+	t_masks *masks;
 
 
-	void (*f_draw)(int *, int *, int);
-	void (*f_expose)(void *, void *, int, int);
+	void (*f_draw)(struct s_map *);
+	int (*f_expose)(void *, void *, void *, int, int);
 
  	void *mlx;
-	void *window;
+	void *win;
 	t_img *img;
+	float **d_grid;
 
 
-	int h_res;
-	int v_res;
+	int hres;
+	int vres;
+	float hfov;
+	float vfov;
+	
 
-
-	float player_hdg;
-	float player_hdg_spd;
-	float player_posx;
-	float player_posx_spd;
-	float player_posy;
-	float player_posy_spd;
-	void (*solve[9])(float ati, float azi, t_map *map)
+	float azi;
+	float ati;
+	float posx;
+	float posy;
+	float posz;
+	float p_spd;
+	float r_spd;
+	void (*solve_walls[9])(float ati, float azi, struct s_map *map, t_loop loop);
 }						t_map;
 
-
-
 //////////////////////////////////////////////////////////////////////
+
+
+typedef struct			s_solve
+{
+	t_block *block;
+	int is_found;
+	float posx;
+	float posy;
+	float posz;
+	float azi;
+	float ati;
+	float stepx;
+	float stepy;
+	float stepz;
+	float dist;
+	float dirx;
+	float diry;
+	float sum_dist;
+	void (*get_dist)(struct s_solve *solve);
+	int (*draw)(t_map *map, t_block *wall, struct s_solve *solve, t_loop loop);
+}						t_solve;
+
+
 void	print_map(t_map* map);
 void	print_player(t_map *map);
 void	printout(t_texture *texture);
 void	print_pixmap(int *img, int size);
+
+float		float_r_down(float x);
+float		float_r_up(float x);
+
 
 
 
@@ -197,13 +206,14 @@ float				get_value(char **buff);
 t_map				*mk_map(char *path);
 int					mk_map_assets(t_map *map, char **buff);
 void				mk_map_walls(t_map *map, char **buff);
+void				mk_map_masks(t_map *map);
 void				mk_map_background(t_map *map, char *c_sky, char *c_dirt);
 
 
 t_block				*mk_map_assets_block(char **buff);
+t_block				*mk_map_assets_block_void(char **buff);
 void				mk_map_assets_player(t_map *map, char **buff);
 
-t_masks				*mk_mask(float fov_v, float v_res, float fov_h, float h_res);
 
 void				mv_up(t_map *map);
 void				mv_down(t_map *map);
@@ -214,7 +224,33 @@ void				mv_r_right(t_map *map);
 
 int					key_hook(int key, t_map *map);
 
-void		draw(t_map *map, t_img *img);
+void		solve_get_dist_cosy(t_solve *solve);
+void		solve_get_dist_sinx(t_solve *solve);
+
+
+
+void		draw(t_map *map);
+int		draw_wall_w(t_map *map, t_block *wall, t_solve *solve, t_loop loop);
+int		draw_wall_s(t_map *map, t_block *wall, t_solve *solve, t_loop loop);
+int		draw_wall_n(t_map *map, t_block *wall, t_solve *solve, t_loop loop);
+int		draw_wall_e(t_map *map, t_block *wall, t_solve *solve, t_loop loop);
+void		draw_walls(t_map *map);
+
+
+int		solve_wall_x_primer(t_solve *solve, t_map *map);
+int		solve_wall_x(t_solve *solve, t_map *map);
+int		solve_wall_y_primer(t_solve *solve, t_map *map);
+int		solve_wall_y(t_solve *solve, t_map *map);
+int		solve_wall_step(t_solve *solve, t_map *map);
+
+void		solve_wall_0(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_1(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_2(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_3(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_4(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_5(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_6(float ati, float azi, t_map *map, t_loop loop);
+void		solve_wall_7(float ati, float azi, t_map *map, t_loop loop);
 
 
 

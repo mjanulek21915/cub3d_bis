@@ -2,5 +2,5 @@
 
 void		mv_r_left(t_map *map)
 {
-	map->player_hdg = map->player_hdg + map->player_hdg_spd;
+	map->azi = map->azi + map->r_spd;
 }

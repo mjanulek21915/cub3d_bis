@@ -7,7 +7,7 @@
 int main()
 {
     void *mlx;
-    void *window;
+    void *win;
 	t_map *map;
 	t_img *img;
 	void *r_draw;
@@ -20,15 +20,18 @@ int main()
     if (!(mlx = mlx_init()))
 		do_exit("mlx_init fail");
 
-    if (!(window = mlx_new_window(mlx, SIZE_X, SIZE_Y, "test_window")))
+    if (!(win = mlx_new_window(mlx, SIZE_X, SIZE_Y, "test_window")))
 		do_exit("mlx_new_window fail");
 
 
 	if (!(img = mlx_new_image(mlx, SIZE_X, SIZE_Y)))
 		do_exit("mlx_new_image fail");
-	draw(map, img);
+	map->mlx = mlx;
+	map->win = win;
+	map->img = img;
+	draw(map);
 	// mlx_put_image_to_window(mlx, window, img, 0, 0);
-    mlx_key_hook(window, key_hook, map);
+    mlx_key_hook(win, key_hook, map);
 	// mlx_loop_hook(win,draw, mlx, window, 0);
     mlx_loop(mlx);
 }

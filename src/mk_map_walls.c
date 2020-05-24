@@ -24,7 +24,8 @@ int					mk_map_walls_get_y_size(char *buff)
 	max_size = 0;
 	while (*buff && *buff == '\n')
 		buff++;
-	while (*buff && *buff != '\n' && !(iz_it("walls end", buff)))
+	while (*buff && *buff != '\n' )
+		// && !(iz_it("walls end", buff))
 	{
 		while (*buff && *buff != '\n')
 		{
@@ -34,7 +35,8 @@ int					mk_map_walls_get_y_size(char *buff)
 		if (size > max_size)
 			max_size = size;
 		size = 0;
-		*buff++;
+		if (*buff == '\n')
+			*buff++;
 	}
 	return (max_size);
 }

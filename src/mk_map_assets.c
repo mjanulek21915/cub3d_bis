@@ -25,6 +25,7 @@ void			mk_map_assets_malloc(t_map *map)
 		map->asset[i].type = 0;
 		i++;
 	}
+	fprintf(stderr, "\n");
  fprintf(stderr, "mk_map_assets_bzero done\n");
 }
 
@@ -45,7 +46,7 @@ int				mk_map_assets( t_map *map, char **buff)
 	while (!(iz_it("assets:", *buff)))
 		(*buff)++;
 	next_line(buff);
-	while (**buff && !(iz_it("assets end", *buff)))
+	while (**buff && !(iz_it("/assets", *buff)))
 	{
 		while (**buff == '\n')
 			(*buff)++;
@@ -64,10 +65,10 @@ int				mk_map_assets( t_map *map, char **buff)
 		}
 		else if (iz_it(":void", ((*buff) + 1)))
 		{
-
-			map->asset[temp].type = '0';
+ fprintf(stderr, "mk_map_assets block void\n");
+			map->asset[temp].type = 'b';
 			next_line(buff);
-			map->asset[temp].data = NULL;
+			map->asset[temp].data = mk_map_assets_block_void(buff);
 		}
 	}
  fprintf(stderr, "mk_map_assets done\n");

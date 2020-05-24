@@ -1,41 +1,52 @@
 #include "cub3d.h"
 
-void static		solve_wall(float ati, float azi, t_map *map)
+void static		solve_wall(float ati, float azi, t_map *map, t_loop loop)
 {
-	map->solve_walls[(int)(azi * PI4)](azi + map->azi, ati + map->ati, map);
+ fprintf(stderr, "solve_wall\n");
+	map->solve_walls[(int)(azi * PI4)](azi + map->azi, ati + map->ati, map, loop);
+ fprintf(stderr, "solve_wall\n");
+
 }
 
-void static		init_draw_walls(t_draw_walls *loop, t_map *map)
+void static		init_loop(t_loop *loop, t_map *map)
 {
+ fprintf(stderr, "init_loop\n");
+
 	loop->h = map->hres;
 	loop->v = map->vres;
-	loop->hcount = map->hcount;
-	loop->v_count = map->vcount;
+	loop->hcount = map->masks->hcount;
+	loop->vcount = map->masks->vcount;
+ fprintf(stderr, "init_loop ok\n");
+
 }
 
 void		draw_walls(t_map *map)
 {
-	t_draw_walls loop;
+ fprintf(stderr, "draw_walls\n");
 
-	init_draw_walls(&loop, map);
-	while (loop.v_count--)
+	t_loop loop;
+
+	init_loop(&loop, map);
+	while (loop.vcount--)
 	{
-		loop.h_count = map->hcount;
+		loop.hcount = map->masks->hcount;
 		loop.h = map->hres;
-		while (loop.h_count--)
-			solve_wall(map->v_mask[loop.v_count], map->h_mask[loop.h_count], map);
+		while (loop.hcount--)
+			solve_wall(map->masks->v_mask[loop.vcount], map->masks->h_mask[loop.hcount], map, loop);
 		while (loop.h--)
-			solve_wall(map->v_mask[loop.v_count], map->h_mask[loop.h_count++], map);
+			solve_wall(map->masks->v_mask[loop.vcount], map->masks->h_mask[loop.hcount++], map, loop);
 		loop.v--;
 	}
 	while (loop.v--)
 	{
-		loop.h_count = map->hcount;
+		loop.hcount = map->masks->hcount;
 		loop.h = map->hres;
-		while (loop.h_count--)
-			solve_wall(map->v_mask[loop.v_count], map->h_mask[loop.h_count], map);
+		while (loop.hcount--)
+			solve_wall(map->masks->v_mask[loop.vcount], map->masks->h_mask[loop.hcount], map, loop);
 		while (loop.h--)
-			solve_wall(map->v_mask[loop.v_count], map->h_mask[loop.h_count++], map);
-		loop.v_count++;
+			solve_wall(map->masks->v_mask[loop.vcount], map->masks->h_mask[loop.hcount++], map, loop);
+		loop.vcount++;
+ fprintf(stderr, "draw_walls ok\n");
+
 	}
 }

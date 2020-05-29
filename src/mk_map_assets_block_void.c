@@ -2,7 +2,7 @@
 
 t_block				*mk_map_assets_block_void(char **buff)
 {
- fprintf(stderr, "mk_map_assets_block_void\n");
+//  fprintf(stderr, "mk_map_assets_block_void\n");
 	t_block *rst;
 	if (!(rst = malloc(sizeof(t_block))))
 		return (NULL);
@@ -10,7 +10,7 @@ t_block				*mk_map_assets_block_void(char **buff)
 	while (!(iz_it("/void", *buff)) && **buff)
 		*(*buff++);
 	next_line(buff);
- fprintf(stderr, "mk_map_assets_block_void done\n");
+//  fprintf(stderr, "mk_map_assets_block_void done\n");
 
 	return (rst);
 }

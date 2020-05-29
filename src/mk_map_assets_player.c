@@ -21,6 +21,6 @@ void				mk_map_assets_player(t_map *map, char **buff)
 		(*buff)++;
 	}
 	next_line(buff);
-	print_player(map);
+	// print_player(map);
 // fprintf(stderr, "mk_map_assets_player done\n");
 }

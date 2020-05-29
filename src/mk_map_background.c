@@ -2,7 +2,7 @@
 
 void		mk_map_background(t_map *map, char *c_sky, char *c_dirt)
 {
- fprintf(stderr, "mk_map_background\n");
+// fprintf(stderr, "mk_map_background\n");
 
 	int i;
 	int j;
@@ -20,11 +20,11 @@ void		mk_map_background(t_map *map, char *c_sky, char *c_dirt)
 	if (!(map->background = malloc(sizeof(t_background))))
 		do_exit("mk_map_background malloc fail");
 	map->background->size = map->hres * map->vres;
- fprintf(stderr, "mk_map_background : size %d\n", map->background->size);
+// fprintf(stderr, "mk_map_background : size %d\n", map->background->size);
 
 	if (!(map->background->bitmap = malloc(sizeof(int) * map->background->size)))
 		do_exit("mk_map_background malloc fail");
- fprintf(stderr, "mk_map_background test\n");
+// fprintf(stderr, "mk_map_background test\n");
 	
 	while (i < map->hres / 2)
 	{
@@ -48,6 +48,6 @@ void		mk_map_background(t_map *map, char *c_sky, char *c_dirt)
 		}
 		i++;
 	}
- fprintf(stderr, "mk_map_background done\n");
+// fprintf(stderr, "mk_map_background done\n");
 
 }

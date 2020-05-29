@@ -2,59 +2,71 @@
 
 void		solve_wall_4_init_x(float ati, float azi, t_map *map, t_solve *solve)
 {
+//  fprintf(stderr, "solve_wall_4_init_x\n");
+
 	solve->posx = map->posx;
 	solve->posy = map->posy;
 	solve->posz = map->posz;
 	solve->ati = ati;
-	solve->azi = azi;
-	solve->stepy = float_r_down(map->posy) - solve->posy;
+	solve->azi = azi - PI;
+	solve->c_azi = PI12 - azi;
+	solve->stepy =  solve->posy - floor(map->posy);
+	if (!solve->stepy)
+		solve->stepy = -1;
 	solve->get_dist = &solve_get_dist_cosy;
 	solve->draw = &draw_wall_e;
 	solve->dirx = -1;
 	solve->diry = -1;
 	solve->sum_dist = 0;
+//  fprintf(stderr, "\tsolve_wall_4_init_x ok : ");
+//  print_solve(solve);
+
 }
 
 void		solve_wall_4_init_y(float ati, float azi, t_map *map, t_solve *solve)
 {
+//  fprintf(stderr, "solve_wall_4_init_y\n");
+
 	solve->posx = map->posx;
 	solve->posy = map->posy;
 	solve->posz = map->posz;
 	solve->ati = ati;
-	solve->azi = azi;
-	solve->stepx = float_r_down(map->posx) - solve->posx;
+	solve->azi = azi - PI;
+	solve->c_azi = PI12 - azi;
+	solve->stepx = solve->posx - floor(map->posx);
+	if (!solve->stepx)
+		solve->stepx = -1;
 	solve->get_dist = &solve_get_dist_cosy;
 	solve->draw = &draw_wall_e;
 	solve->dirx = -1;
 	solve->diry = -1;
 	solve->sum_dist = 0;
+
+//  fprintf(stderr, "solve_wall_4_init_y ok : \n");
+//  print_solve(solve);
+
 }
 
 void		solve_wall_4(float ati, float azi, t_map *map, t_loop loop)
 {
- fprintf(stderr, "solve_wall_4\n");
+//  fprintf(stderr, "solve_wall_4\n");
 
 	t_solve solve_x;
 	t_solve solve_y;
 
 	solve_wall_4_init_x(ati, azi, map, &solve_x);
 	solve_wall_4_init_y(ati, azi, map, &solve_y);
-	if (solve_wall_x(&solve_x, map) && solve_wall_y(&solve_y, map))
-		if(solve_wall_x_primer(&solve_x, map)
-		&& solve_wall_y_primer(&solve_y, map))
-			while (solve_wall_step(&solve_x, map)
-			&& (solve_wall_step(&solve_y, map)));
-	if (solve_x.is_found && solve_y.is_found)
+	solve_wall_x(&solve_x);
+	solve_wall_y(&solve_y);
+	if (solve_wall_check(&solve_x, &solve_x, map, loop))
+		return ;
+	solve_wall_set(&solve_x, &solve_y);
+	// solve_wall_x(&solve_x);
+	// solve_wall_y(&solve_y);
+	while (!(solve_wall_check(&solve_x, &solve_x, map, loop)))
 	{
-		if (solve_x.sum_dist < solve_y.sum_dist)
-			solve_x.draw(map, solve_x.block, &solve_x, loop);
-		else
-			solve_y.draw(map, solve_y.block, &solve_y, loop);
+		solve_wall_step(&solve_x, &solve_y);
 	}
-	else if (solve_x.is_found && !(solve_y.is_found))
-		solve_x.draw(map, solve_x.block, &solve_x, loop);
-	else if (solve_y.is_found && !(solve_x.is_found))
-		solve_y.draw(map, solve_y.block, &solve_y, loop);
- fprintf(stderr, "solve_wall_4 ok\n");
-
+//  fprintf(stderr, "solve_wall_4 ok\n");
+	
 }

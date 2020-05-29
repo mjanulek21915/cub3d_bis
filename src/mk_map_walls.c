@@ -55,7 +55,7 @@ void				mk_map_get_walls(t_map *map, char *buff)
 	{
 		while (*buff != '\n' && *buff)
 		{
- fprintf(stderr, "mk_map_get_walls : %c\n", ((char)*buff));
+//  fprintf(stderr, "mk_map_get_walls : %c\n", ((char)*buff));
 			if (map->asset[*buff].type == 0)
 				do_exit("mk_map_get_walls asset doesn't exist\n");
 			if (map->asset[*buff].type = 'b')
@@ -97,11 +97,11 @@ void				*mk_map_walls_malloc(t_map *map, char *buff)
 
 void				mk_map_walls(t_map *map, char **buff)
 {
- fprintf(stderr, "mk_map_walls\n");
+//  fprintf(stderr, "mk_map_walls\n");
 	while (!(iz_it("walls:", *buff)))
 		(*buff)++;
 	next_line(buff);
 	mk_map_walls_malloc(map, *buff);
 	mk_map_get_walls(map, *buff);
- fprintf(stderr, "mk_map_walls done\n");
+//  fprintf(stderr, "mk_map_walls done\n");
 }

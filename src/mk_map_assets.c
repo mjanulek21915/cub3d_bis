@@ -65,11 +65,11 @@ int				mk_map_assets( t_map *map, char **buff)
 		}
 		else if (iz_it(":void", ((*buff) + 1)))
 		{
- fprintf(stderr, "mk_map_assets block void\n");
+// fprintf(stderr, "mk_map_assets block void\n");
 			map->asset[temp].type = 'b';
 			next_line(buff);
 			map->asset[temp].data = mk_map_assets_block_void(buff);
 		}
 	}
- fprintf(stderr, "mk_map_assets done\n");
+// fprintf(stderr, "mk_map_assets done\n");
 }

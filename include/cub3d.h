@@ -16,7 +16,9 @@
 #define TITLE "test"
 
 #define PI 3.14159265359
-#define PI4 (float)PI/4
+#define PI14 0.785398
+#define PI12 1.570796
+#define PI32 4.712389
 #define PATH "/home/aaa/cub3d_bis/maps/map_test"
 
 #define FOV_V 90;
@@ -119,7 +121,10 @@ typedef struct			s_loop
 
 
 
-
+struct s_solve;
+typedef struct s_solve t_solve;
+struct s_map;
+typedef struct s_map t_map;
 
 //////////////////////////////////////////////////////////////////////
 typedef struct			s_map
@@ -134,7 +139,7 @@ typedef struct			s_map
 	t_masks *masks;
 
 
-	void (*f_draw)(struct s_map *);
+	void (*f_draw)(t_map *);
 	int (*f_expose)(void *, void *, void *, int, int);
 
  	void *mlx;
@@ -156,13 +161,14 @@ typedef struct			s_map
 	float posz;
 	float p_spd;
 	float r_spd;
+	int (*wall_check[3][3])(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
 	void (*solve_walls[9])(float ati, float azi, struct s_map *map, t_loop loop);
 }						t_map;
 
 //////////////////////////////////////////////////////////////////////
 
 
-typedef struct			s_solve
+struct			s_solve
 {
 	t_block *block;
 	int is_found;
@@ -170,6 +176,7 @@ typedef struct			s_solve
 	float posy;
 	float posz;
 	float azi;
+	float c_azi;
 	float ati;
 	float stepx;
 	float stepy;
@@ -180,7 +187,7 @@ typedef struct			s_solve
 	float sum_dist;
 	void (*get_dist)(struct s_solve *solve);
 	int (*draw)(t_map *map, t_block *wall, struct s_solve *solve, t_loop loop);
-}						t_solve;
+};
 
 
 void	print_map(t_map* map);
@@ -188,6 +195,10 @@ void	print_player(t_map *map);
 void	printout(t_texture *texture);
 void	print_pixmap(int *img, int size);
 void		print_solve(t_solve *solve);
+void 		print_loop(t_loop loop);
+void		print_mask(t_masks *masks);
+
+
 
 
 float		float_r_down(float x);
@@ -226,6 +237,9 @@ void				mv_r_right(t_map *map);
 
 int					key_hook(int key, t_map *map);
 
+
+void static		solve_wall(float ati, float azi, t_map *map, t_loop loop);
+
 void		solve_get_dist_cosy(t_solve *solve);
 void		solve_get_dist_sinx(t_solve *solve);
 
@@ -239,11 +253,14 @@ int		draw_wall_e(t_map *map, t_block *wall, t_solve *solve, t_loop loop);
 void		draw_walls(t_map *map);
 
 
-int		solve_wall_x_primer(t_solve *solve, t_map *map);
-int		solve_wall_x(t_solve *solve, t_map *map);
-int		solve_wall_y_primer(t_solve *solve, t_map *map);
-int		solve_wall_y(t_solve *solve, t_map *map);
-int		solve_wall_step(t_solve *solve, t_map *map);
+// int		solve_wall_x_primer(t_solve *solve, t_map *map);
+// int		solve_wall_x(t_solve *solve, t_map *map);
+// int		solve_wall_y_primer(t_solve *solve, t_map *map);
+// int		solve_wall_y(t_solve *solve, t_map *map);
+// int		solve_wall_step(t_solve *solve, t_map *map);
+
+void		solve_wall(float ati, float azi, t_map *map, t_loop loop);
+
 
 void		solve_wall_0(float ati, float azi, t_map *map, t_loop loop);
 void		solve_wall_1(float ati, float azi, t_map *map, t_loop loop);
@@ -253,6 +270,19 @@ void		solve_wall_4(float ati, float azi, t_map *map, t_loop loop);
 void		solve_wall_5(float ati, float azi, t_map *map, t_loop loop);
 void		solve_wall_6(float ati, float azi, t_map *map, t_loop loop);
 void		solve_wall_7(float ati, float azi, t_map *map, t_loop loop);
+
+int			solve_wall_check(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
+void		solve_wall_set(t_solve *solve_x, t_solve *solve_y);
+void		solve_wall_x(t_solve *solve);
+void		solve_wall_y(t_solve *solve);
+void solve_wall_step(t_solve *solve_x, t_solve *solve_y);
+
+int		solve_wall_check_draw_compare(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
+int		solve_wall_check_draw_x(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
+int		solve_wall_check_draw_y(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
+int		solve_wall_check_return_0(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
+int		solve_wall_check_return_1(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
+
 
 
 

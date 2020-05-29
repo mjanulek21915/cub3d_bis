@@ -3,8 +3,11 @@
 t_map			*mk_map_malloc(void)
 {
 	t_map *map;
+	int i;
+
+	i = 0;
 	if(!(map = malloc(sizeof(t_map))))
-		do_exit("mk_map map malloc fail");
+		do_exit("mk_map map malloc fail\n");
 	map->ati = 90 * PI / 180;
 	map->r_spd = 1 * PI / 180;
 	map->p_spd = 0.1;
@@ -12,13 +15,21 @@ t_map			*mk_map_malloc(void)
 	map->vres = SIZE_Y;
 	map->vfov = FOV_V;
 	map->hfov = FOV_H;
-
-
+	if (!(map->d_grid = malloc(sizeof(float *) * map->vres)))
+		do_exit("mk_map float malloc fail\n");
+	while (i < map->hres)
+	{
+		if (!(map->d_grid[i] = malloc(sizeof(float) * map->hres)))
+			do_exit("mk_map float malloc fail\n");
+		i++;
+	}
+	i = 0;
+	return(map);
 }
 
 t_map			*mk_map(char *path)
 {
- fprintf(stderr, "mk_map\n");
+//  fprintf(stderr, "mk_map\n");
 	char *buff;
 	t_map *map;
 	int i;
@@ -43,7 +54,17 @@ t_map			*mk_map(char *path)
 	map->solve_walls[6] = &solve_wall_6;
 	map->solve_walls[7] = &solve_wall_7;
 	map->solve_walls[8] = map->solve_walls[0];
-fprintf(stderr, "mk_map done\n");
+	map->wall_check[0][0] = &solve_wall_check_return_1;
+	map->wall_check[0][1] = &solve_wall_check_draw_y;
+	map->wall_check[0][2] = &solve_wall_check_return_0;
+	map->wall_check[1][0] = &solve_wall_check_draw_x;
+	map->wall_check[1][1] = &solve_wall_check_draw_compare;
+	map->wall_check[1][2] = &solve_wall_check_draw_x;
+	map->wall_check[2][0] = &solve_wall_check_return_0;
+	map->wall_check[2][1] = &solve_wall_check_draw_y;
+	map->wall_check[2][2] = &solve_wall_check_return_0;
+
+// fprintf(stderr, "mk_map done\n");
 	return (map);
 }
 

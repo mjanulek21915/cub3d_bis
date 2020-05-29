@@ -2,7 +2,7 @@
 
 void	mk_map_masks(t_map *map)
 {
- fprintf(stderr, "mk_map_masks\n");
+//  fprintf(stderr, "mk_map_masks\n");
 	float h_base;
 	float v_base;
 	int i;
@@ -16,11 +16,20 @@ void	mk_map_masks(t_map *map)
 	!(map->masks->v_mask = malloc(sizeof(int) * map->masks->vcount)))
 		do_exit("mk_mask: malloc fail\n");
 
-	map->hfov = map->hfov * PI / 180;
-	map->vfov = map->vfov * PI / 180;
+// fprintf(stderr, "HFOVDEG = %f\n", map->hfov);
+// fprintf(stderr, "VFOVDEG = %f\n", map->vfov);
 
-	h_base = tan(map->hfov) * map->masks->hcount;
-	v_base = tan(map->vfov) * map->masks->vcount;
+	map->hfov = map->hfov * PI / 360;
+	map->vfov = map->vfov * PI / 360;
+
+	h_base = tan(PI12-map->hfov) * map->masks->hcount;
+	v_base = tan(PI12-map->vfov) * map->masks->vcount;
+
+// fprintf(stderr, "HVOV = %f\n", map->hfov);
+// fprintf(stderr, "VBASE = %f\n", map->vfov);
+
+// fprintf(stderr, "HBASE = %f\n", h_base);
+// fprintf(stderr, "VBASE = %f\n", v_base);
 
 	i = 0;
 	while (i < map->masks->hcount)
@@ -31,9 +40,9 @@ void	mk_map_masks(t_map *map)
 	i = 0;
 	while (i < map->masks->vcount)
 	{
-//  fprintf(stderr, "mk_map_masks ok\n");
 		map->masks->v_mask[i] = atan((float)i / v_base);
 		i++;
 	}
- fprintf(stderr, "mk_map_masks done\n");
+	// print_mask(map->masks);
+//  fprintf(stderr, "mk_map_masks done\n");
 }

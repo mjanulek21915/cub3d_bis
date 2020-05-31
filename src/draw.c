@@ -5,7 +5,6 @@ void		draw_background(int *background, int *img, int size)
 	while (size--)
 	{
 		*img++ = *background++;
-
 	}
 }
 
@@ -19,6 +18,5 @@ void		draw(t_map *map)
 	draw_walls(map);
 // fprintf(stderr, "draw ok\n");
 map->f_expose(map->mlx, map->win, map->img, 0, 0);
-sleep(2);
 
 }

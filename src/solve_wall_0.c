@@ -14,7 +14,7 @@ void		solve_wall_0_init_x(float ati, float azi, t_map *map, t_solve *solve)
 	solve->stepx = 0;
 	if (!solve->stepy)
 		solve->stepy = 1;	
-	solve->get_dist = &solve_get_dist_cosy;
+	solve->get_dist = &solve_get_dist_sinx;
 	solve->draw = &draw_wall_w;
 	solve->dirx = 1;
 	solve->diry = 1;
@@ -38,7 +38,7 @@ void		solve_wall_0_init_y(float ati, float azi, t_map *map, t_solve *solve)
 	solve->stepx = ceil(map->posx) - solve->posx;
 	if (!solve->stepx)
 		solve->stepx = 1;
-	solve->get_dist = &solve_get_dist_cosy;
+	solve->get_dist = &solve_get_dist_sinx;
 	solve->draw = &draw_wall_w;
 	solve->dirx = 1;
 	solve->diry = 1;

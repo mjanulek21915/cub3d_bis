@@ -2,5 +2,5 @@
 
 void		solve_get_dist_cosy(t_solve *solve)
 {
-	solve->dist = cos(solve->azi) * solve->stepy;
+	solve->dist =  solve->stepy / cos(solve->azi);
 }

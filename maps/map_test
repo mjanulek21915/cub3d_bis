@@ -28,10 +28,12 @@ W:
 p:player
 HDG:
 45
+ATI:
+0
 POSX:
-2
+4
 POSY:
-2
+4
 POSZ:
 0.5
 HDG_SPD:

@@ -3,30 +3,30 @@
 
 void print_asset(t_asset *asset)
 {
-	 fprintf(stderr, "type: %c", asset->type);
+// fprintf(stderr, "type: %c", asset->type);
 }
 
 
 
 void			mk_map_assets_malloc(t_map *map)
 {
- fprintf(stderr, "mk_map_assets_bzero\n");
+//  fprintf(stderr, "mk_map_assets_bzero\n");
 
 	int i;
 
 	i = 0;
 	if (!(map->asset = malloc(sizeof(t_asset) * 128)))
 		do_exit("mk_map_malloc phail");
- fprintf(stderr, "mk_map_assets_iteration\n");
+//  fprintf(stderr, "mk_map_assets_iteration\n");
 	while (i < 128)
 	{
- fprintf(stderr, "%d ", i);
+//  fprintf(stderr, "%d ", i);
 		map->asset[i].data = NULL;
 		map->asset[i].type = 0;
 		i++;
 	}
-	fprintf(stderr, "\n");
- fprintf(stderr, "mk_map_assets_bzero done\n");
+	// fprintf(stderr, "\n");
+//  fprintf(stderr, "mk_map_assets_bzero done\n");
 }
 
 
@@ -34,7 +34,7 @@ void			mk_map_assets_malloc(t_map *map)
 
 int				mk_map_assets( t_map *map, char **buff)
 {
- fprintf(stderr, "mk_map_assets\n");
+//  fprintf(stderr, "mk_map_assets\n");
 	
 	char temp;
 

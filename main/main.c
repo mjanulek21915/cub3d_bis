@@ -31,9 +31,9 @@ int main()
 	map->img = img;
 	draw(map);
 	// mlx_put_image_to_window(mlx, window, img, 0, 0);
-    // mlx_key_hook(win, key_hook, map);
+    mlx_key_hook(win, key_hook, map);
 	// mlx_loop_hook(win,draw, mlx, window, 0);
-    // mlx_loop(mlx);
+    mlx_loop(mlx);
 }
 
 

@@ -2,18 +2,25 @@
 
 int		draw_wall_w(t_map *map, t_block *wall, t_solve *solve, t_loop loop)
 {
+// print_solve(solve);
 	float h;
 	float v;
-// print_solve(solve);
+	float hpixel;
+	float vpixel;
+
+
+fprintf(stderr, ">>>draw_wall_w :\n  posh=%d posv=%d maskh=%d maskv=%d posx=%f posy=%f posz=%f\n",loop.h, loop.v, loop.hcount, loop.vcount, solve->posx, solve->posy, solve->posz);
 
 	h = (float)(solve->posx - (int)solve->posx);
 	v = (float)(solve->posz - (int)solve->posz);
-// fprintf(stderr, "h : %f\n", h);
-// fprintf(stderr, "v : %f\n", v);
-// fprintf(stderr, "loop.v : %d\n", loop.v);
-// fprintf(stderr, "loop.h : %d\n", loop.h);
+	hpixel = h * wall->mult_w_h;
+	vpixel = v * wall->mult_w_v;
 
-	((int *)map->img->data)[(loop.v * map->vres) + loop.h] =
+fprintf(stderr, "  v :%f h:%f hpixel:%f vpixel:%f mult_h:%f mult_v:%f\n",
+ v, h, hpixel, vpixel, wall->mult_w_h, wall->mult_w_v);
+
+	((int *)map->img->data)[(loop.v * map->hres) + loop.h] =
 	 wall->w_texture->bitmap[(int)(v * wall->mult_w_v)][(int)(h * wall->mult_w_h)];
+fprintf(stderr, "\n");
 	return (0);
 }

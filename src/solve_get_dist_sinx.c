@@ -2,5 +2,5 @@
 
 void		solve_get_dist_sinx(t_solve *solve)
 {
-	solve->dist = sin(solve->azi) * solve->stepx;
+	solve->dist = solve->stepx / sin(solve->azi);
 }

@@ -7,6 +7,8 @@ void				mk_map_assets_player(t_map *map, char **buff)
 	{
 		// fprintf(stderr, "aaa\n");
 		if (iz_it("HDG:", *buff))
+			map->azi = get_value(buff) / 180 * PI;
+		if (iz_it("ATI:", *buff))
 			map->ati = get_value(buff) / 180 * PI;
 		else if (iz_it("HDG_SPD:", *buff))
 			map->r_spd = get_value(buff) / 180 * PI;

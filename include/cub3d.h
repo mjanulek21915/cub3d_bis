@@ -21,8 +21,8 @@
 #define PI32 4.712389
 #define PATH "/home/aaa/cub3d_bis/maps/map_test"
 
-#define FOV_V 90;
-#define FOV_H 60;
+#define FOV_V 60;
+#define FOV_H 90;
 
 
 
@@ -194,9 +194,9 @@ void	print_map(t_map* map);
 void	print_player(t_map *map);
 void	printout(t_texture *texture);
 void	print_pixmap(int *img, int size);
-void		print_solve(t_solve *solve);
-void 		print_loop(t_loop loop);
-void		print_mask(t_masks *masks);
+void		print_solve(t_solve *solve, char *label, char *indent);
+void 		print_loop(t_loop loop, char *label, char *indent);
+void		print_mask(t_masks *masks, char *label, char *indent);
 
 
 

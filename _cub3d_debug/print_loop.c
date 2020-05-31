@@ -1,11 +1,11 @@
 #include "cub3d.h"
 
-void 		print_loop(t_loop loop)
+void 		print_loop(t_loop loop, char *label, char *indent)
 {
-	fprintf(stderr, "PRINT LOOP");
-	fprintf(stderr, "loop.h = %d", loop.h);
-	fprintf(stderr, "loop.v = %d", loop.v);
-	fprintf(stderr, "loop.hcount = %d", loop.hcount);
-	fprintf(stderr, "loop.vcount = %d", loop.vcount);
+	fprintf(stderr, "%s", label);
+	fprintf(stderr, "%sh = %d ", indent, loop.h);
+	fprintf(stderr, "%sv = %d ", indent, loop.v);
+	fprintf(stderr, "%shcount = %d ", indent, loop.hcount);
+	fprintf(stderr, "%svcount = %d\n", indent, loop.vcount);
 
 }

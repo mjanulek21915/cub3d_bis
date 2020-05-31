@@ -8,7 +8,6 @@ t_map			*mk_map_malloc(void)
 	i = 0;
 	if(!(map = malloc(sizeof(t_map))))
 		do_exit("mk_map map malloc fail\n");
-	map->ati = 90 * PI / 180;
 	map->r_spd = 1 * PI / 180;
 	map->p_spd = 0.1;
 	map->hres = SIZE_X;

@@ -33,8 +33,8 @@ t_map			*mk_map(char *path)
 	t_map *map;
 	int i;
 	int j;
-	char sky[4] = {0, 255, 0, 0};
-	char dirt[4] = {0, 0, 255, 0};
+	char sky[4] = {118, 118, 92, 0};
+	char dirt[4] = {5, 25, 50, 0};
 
 	open_file(&buff, PATH);
 	map = mk_map_malloc();

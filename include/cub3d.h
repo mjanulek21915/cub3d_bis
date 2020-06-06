@@ -4,15 +4,15 @@
 #include "_cub3d_debug.h"
 
 
-#define R_LEFT 113
-#define R_RIGHT 100
-#define LEFT 119
-#define RIGHT 99
-#define UP 115
-#define DOWN 120
+#define R_LEFT 100
+#define R_RIGHT 103
+#define LEFT 99
+#define RIGHT 98
+#define UP 102
+#define DOWN 118
 
-#define SIZE_X 200
-#define SIZE_Y 200
+#define SIZE_X 20
+#define SIZE_Y 20
 #define TITLE "test"
 
 #define PI 3.14159265359
@@ -191,7 +191,7 @@ struct			s_solve
 
 
 void	print_map(t_map* map);
-void	print_player(t_map *map);
+void print_player(t_map *map, char *label, char *indent);
 void	printout(t_texture *texture);
 void	print_pixmap(int *img, int size);
 void		print_solve(t_solve *solve, char *label, char *indent);
@@ -273,8 +273,8 @@ void		solve_wall_7(float ati, float azi, t_map *map, t_loop loop);
 
 int			solve_wall_check(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);
 void		solve_wall_set(t_solve *solve_x, t_solve *solve_y);
-void		solve_wall_x(t_solve *solve);
-void		solve_wall_y(t_solve *solve);
+void		solve_wall_x(t_solve *solve, t_loop loop);
+void		solve_wall_y(t_solve *solve, t_loop loop);
 void solve_wall_step(t_solve *solve_x, t_solve *solve_y);
 
 int		solve_wall_check_draw_compare(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop loop);

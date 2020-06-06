@@ -27,6 +27,6 @@ int			solve_wall_check(t_solve *solve_x, t_solve *solve_y, t_map *map, t_loop lo
 			rst_y = 1;
 	}
  status = (map->wall_check[rst_x][rst_y](solve_x, solve_y, map, loop));
-fprintf(stderr, ">>>solve_wall_check : %d\n", status);
+// fprintf(stderr, ">>>solve_wall_check : %d\n", status);
 	return (status);
 }

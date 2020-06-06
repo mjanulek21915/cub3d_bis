@@ -9,7 +9,7 @@ void		solve_wall_0_init_x(float ati, float azi, t_map *map, t_solve *solve)
 	solve->posz = map->posz;
 	solve->ati = ati;
 	solve->azi = azi;
-	solve->c_azi = PI12 - azi;
+	solve->c_azi = PI12 - solve->azi;
 	solve->stepy = ceil(map->posy) - solve->posy;
 	solve->stepx = 0;
 	if (!solve->stepy)
@@ -33,7 +33,7 @@ void		solve_wall_0_init_y(float ati, float azi, t_map *map, t_solve *solve)
 	solve->posz = map->posz;
 	solve->ati = ati;
 	solve->azi = azi;
-	solve->c_azi = PI12 - azi;
+	solve->c_azi = PI12 - solve->azi;
 	solve->stepy = 0;
 	solve->stepx = ceil(map->posx) - solve->posx;
 	if (!solve->stepx)
@@ -58,14 +58,14 @@ void		solve_wall_0(float ati, float azi, t_map *map, t_loop loop)
 
 	solve_wall_0_init_x(ati, azi, map, &solve_x);
 	solve_wall_0_init_y(ati, azi, map, &solve_y);
-	solve_wall_x(&solve_x);
-	solve_wall_y(&solve_y);
-	if (solve_wall_check(&solve_x, &solve_x, map, loop))
+	solve_wall_x(&solve_x, loop);
+// print_solve(&solve_x, "solve x\n", "");
+// print_solve(&solve_y, "solve y\n", "");
+	solve_wall_y(&solve_y, loop);
+	if (solve_wall_check(&solve_x, &solve_y, map, loop))
 		return ;
 	solve_wall_set(&solve_x, &solve_y);
-	// solve_wall_x(&solve_x);
-	// solve_wall_y(&solve_y);
-	while (!(solve_wall_check(&solve_x, &solve_x, map, loop)))
+	while (!(solve_wall_check(&solve_x, &solve_y, map, loop)))
 	{
 		solve_wall_step(&solve_x, &solve_y);
 	}
